@@ -2,9 +2,7 @@
 # data = delta * option_price) / symbol_price
 
 declare lower;
-def epsilon = 0.01 * close(GetUnderlyingSymbol());
-def approxDelta = (OptionPrice(underlyingPrice = close(GetUnderlyingSymbol()) + epsilon) - OptionPrice()) / epsilon;
-
-def optionPrice = close(priceType =  PriceType.LAST);
-def symbolPrice = close(GetUnderlyingSymbol());
-plot result = sum(approxDelta * optionPrice) / symbolPrice;
+def _delta = Delta();
+def _optionPrice = OptionPrice();
+def _underlyingPrice = close(GetUnderlyingSymbol());
+plot result = (_delta * _underlyingPrice / _optionPrice);
